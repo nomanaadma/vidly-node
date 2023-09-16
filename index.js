@@ -1,10 +1,13 @@
 require('dotenv').config();
+const config = require('config');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
 const Joi = require('joi');
 const logger = require('./logger');
 const app = express();
+
+console.log( config.get('name') );
 
 app.use(helmet());
 
