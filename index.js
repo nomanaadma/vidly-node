@@ -5,13 +5,10 @@ const logger = require('./logger')
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 app.use(logger);
-
-app.use(function(req, res, next) {
-    console.log('Authenticating...');
-    next();
-});
 
 const courses = [
     { id: 1, name: 'course 1'},
