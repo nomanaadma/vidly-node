@@ -1,8 +1,17 @@
+require('dotenv').config();
+const helmet = require('helmet');
+const morgan = require('morgan');
 const express = require('express');
 const Joi = require('joi');
-const logger = require('./logger')
-
+const logger = require('./logger');
 const app = express();
+
+app.use(helmet());
+
+if(app.get('env') === 'development') {
+    app.use(morgan('tiny'));
+    console.log('Morgan Enabled');
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
