@@ -7,9 +7,11 @@ const Joi = require('joi');
 const logger = require('./logger');
 const app = express();
 
-console.log( config.get('name') );
+app.set('view engine', 'pug');
+app.set('views', './views');
 
-app.use(helmet());
+
+console.log( config.get('name') );
 
 if(app.get('env') === 'development') {
     app.use(morgan('tiny'));
@@ -19,8 +21,8 @@ if(app.get('env') === 'development') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-
 app.use(logger);
+app.use(helmet());
 
 const courses = [
     { id: 1, name: 'course 1'},
@@ -29,7 +31,7 @@ const courses = [
 ]
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.render('index', { title: 'Hey', message: 'Hello there!' })
 });
 
 app.get('/api/courses', (req, res) => {
