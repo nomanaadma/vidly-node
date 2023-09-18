@@ -1,19 +1,12 @@
 require('dotenv').config();
-const config = require('config');
-const helmet = require('helmet');
-const morgan = require('morgan');
 const express = require('express');
-const courses = require('./routes/courses');
+const morgan = require('morgan');
+const helmet = require('helmet');
+const genres = require('./routes/genres');
 const home = require('./routes/home');
-
-const logger = require('./middlewares/logger');
 const app = express();
 
-app.set('view engine', 'pug');
-app.set('views', './views');
 
-
-console.log( config.get('name') );
 
 if(app.get('env') === 'development') {
     app.use(morgan('tiny'));
@@ -21,15 +14,11 @@ if(app.get('env') === 'development') {
 }
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-app.use(logger);
 app.use(helmet());
 
 
-app.use('/api/courses', courses);
+app.use('/api/genres', genres);
 app.use('/', home);
-
 
 
 
