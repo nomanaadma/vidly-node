@@ -1,4 +1,6 @@
 require('dotenv').config();
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -9,6 +11,7 @@ const movies = require('./routes/movies');
 const rentals = require('./routes/rentals');
 const home = require('./routes/home');
 const app = express();
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/vidly')
     .then(() => console.log('connected to mongo db'))
