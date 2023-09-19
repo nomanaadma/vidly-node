@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Genre, validate } = require('../models/customer');
+const { Genre, validate } = require('../models/genre');
 
 router.get('/', async (req, res) => {
     const genres = await Genre.find().sort('name');
@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     
-    const genre = await Genre.findyByID(req.params.id);
+    const genre = await Genre.findById(req.params.id);
     
     if(!genre) return res.status(404).send('The genre with given id was not found.');
 
