@@ -16,7 +16,6 @@ const home = require('./routes/home');
 const error = require('./middlewares/error');
 const app = express();
 
-
 if(!process.env.jwtPrivateKey) {
     console.error('FATAL ERROR: jwtPrivateKey is not defined');
     process.exit(1);
@@ -26,7 +25,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/vidly')
     .then(() => console.log('connected to mongo db'))
     .catch(() => console.error('could not connect to mongo db'));
 
-if(app.get('env') === 'development') {
+if(process.env.NODE_ENV !== 'production') {
     app.use(morgan('tiny'));
     console.log('Morgan Enabled');
 }
