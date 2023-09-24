@@ -12,6 +12,15 @@ const logger = winston.createLogger({
     ),
     defaultMeta: { service: 'user-service' },
     transports: [
+        new winston.transports.Console({
+            handleExceptions: true,
+            handleRejections: true,
+            format: winston.format.combine(
+                winston.format.simple(),
+                winston.format.timestamp(),
+                winston.format.colorize(),
+            )
+        }),
         new winston.transports.File({
             filename: 'logfile.log', 
             handleExceptions: true,

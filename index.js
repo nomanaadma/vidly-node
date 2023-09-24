@@ -3,8 +3,8 @@ const express = require('express');
 const app = express();
 const logger = require('./helpers/logger');
 
-require('./startup/validation')();
 require('./startup/config')();
+require('./startup/validation')();
 require('./startup/logging')(app);
 require('./startup/db')();
 require('./startup/routes')(app);
