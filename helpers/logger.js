@@ -1,4 +1,5 @@
 const winston = require('winston');
+require('winston-mongodb');
 
 const logger = winston.createLogger({
     format: winston.format.combine(
@@ -21,6 +22,10 @@ const logger = winston.createLogger({
     ]
 });
 
+const transportOptions = {
+  db: 'mongodb://127.0.0.1:27017/vidly',
+};
 
+logger.add(new winston.transports.MongoDB(transportOptions));
 
 module.exports = logger;
