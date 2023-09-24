@@ -14,7 +14,22 @@ const users = require('./routes/users');
 const auth = require('./routes/auth');
 const home = require('./routes/home');
 const error = require('./middlewares/error');
+const logger = require('./helpers/logger');
 const app = express();
+
+process.on('uncaughtException', (ex) => {
+
+    console.log('WE GOT AN UNCAUGHT EXCEPTION');
+    logger.error(ex.message, ex);
+
+});
+
+
+
+
+throw new Error('Crasheddd !');
+
+
 
 if(!process.env.jwtPrivateKey) {
     console.error('FATAL ERROR: jwtPrivateKey is not defined');
