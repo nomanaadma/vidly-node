@@ -17,17 +17,22 @@ const error = require('./middlewares/error');
 const logger = require('./helpers/logger');
 const app = express();
 
-process.on('uncaughtException', (ex) => {
+// process.on('uncaughtException', (ex) => {
+//     logger.error(ex.message, ex);
+//     process.exit(1);
+// });
 
-    console.log('WE GOT AN UNCAUGHT EXCEPTION');
-    logger.error(ex.message, ex);
-
-});
-
-
+// process.on('unhandledRejection', (ex) => {
+//     logger.error(ex.message, ex);
+//     process.exit(1);
+// });
 
 
-throw new Error('Crasheddd !');
+// throw new Error('working');
+
+
+// const p = Promise.reject(new Error('Something failed miserably'));
+// p.then(() => console.log('working'));
 
 
 

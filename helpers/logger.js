@@ -12,8 +12,10 @@ const logger = winston.createLogger({
     ),
     defaultMeta: { service: 'user-service' },
     transports: [
-        new winston.transports.File({ 
+        new winston.transports.File({
             filename: 'logfile.log', 
+            handleExceptions: true,
+            handleRejections: true,
             format: winston.format.combine(
                 winston.format.simple(),
                 winston.format.timestamp(),
@@ -23,7 +25,9 @@ const logger = winston.createLogger({
 });
 
 const transportOptions = {
-  db: 'mongodb://127.0.0.1:27017/vidly',
+    db: 'mongodb://127.0.0.1:27017/vidly',
+    handleExceptions: true,
+    handleRejections: true,
 };
 
 logger.add(new winston.transports.MongoDB(transportOptions));
