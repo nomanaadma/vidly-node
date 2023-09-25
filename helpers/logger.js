@@ -1,5 +1,6 @@
 const winston = require('winston');
 require('winston-mongodb');
+const config = require('config');
 
 const logger = winston.createLogger({
     format: winston.format.combine(
@@ -16,9 +17,9 @@ const logger = winston.createLogger({
             handleExceptions: true,
             handleRejections: true,
             format: winston.format.combine(
+                winston.format.colorize(),
                 winston.format.simple(),
                 winston.format.timestamp(),
-                winston.format.colorize(),
             )
         }),
         new winston.transports.File({
@@ -34,7 +35,7 @@ const logger = winston.createLogger({
 });
 
 const transportOptions = {
-    db: process.env.connection,
+    db: config.get('connection'),
     handleExceptions: true,
     handleRejections: true,
 };

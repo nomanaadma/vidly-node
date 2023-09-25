@@ -3,7 +3,7 @@ require('express-async-errors');
 
 module.exports = function(app) {
 
-    if(process.env.NODE_ENV !== 'production') {
+    if(app.get('env') !== 'production') {
         app.use(morgan('tiny'));
     }
 
