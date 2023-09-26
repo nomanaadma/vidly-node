@@ -10,7 +10,13 @@ require('./startup/logging')(app);
 require('./startup/db')();
 require('./startup/routes')(app);
 
-const port = config.get('port');
-const server = app.listen(port, () => logger.info(`Listening on port ${port}`));
 
-module.exports = server;
+function startServer(port) {
+    return app.listen(port, () => logger.info(`Listening on port ${port}`));
+}
+
+if (app.get('env') !== 'test') {
+    startServer(config.get('port'));
+}
+
+module.exports = startServer;

@@ -1,18 +1,26 @@
 const request = require('supertest');
 const { User } = require('../../models/user');
 const { Genre } = require('../../models/genre');
+const port = require('../../helpers/port');
+const mongoose = require('mongoose');
 
 let server;
-
 
 describe('auth middleware', () => {
 
     let token;
 
-    beforeEach(() => {  server = require('../../index'); token = new User().generateAuthToken(); });
+    beforeEach(() => { 
+        server = require('../../index')(port());
+        token = new User().generateAuthToken();
+    });
     afterEach( async () => { 
-        server.close();
+        await server.close();
         await Genre.deleteMany({});
+    });
+
+    afterAll(async () => {   // This is the added hook
+        await mongoose.disconnect();
     });
 
     const execReq = () => {

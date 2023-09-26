@@ -1,16 +1,25 @@
 const request = require('supertest');
 const { Genre } = require('../../models/genre');
 const { User } = require('../../models/user');
+const port = require('../../helpers/port');
+const mongoose = require('mongoose');
+
 
 
 let server;
 
 describe('/api/genres', () => {
 
-    beforeEach(() => {  server = require('../../index'); });
+    beforeEach(() => { 
+        server = require('../../index')(port());
+    });
     afterEach( async () => {
-        server.close();
+        await server.close();
         await Genre.deleteMany({});
+    });
+
+    afterAll(async () => {   // This is the added hook
+        await mongoose.disconnect();
     });
 
     describe('GET /', () => {
