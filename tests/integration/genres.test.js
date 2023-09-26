@@ -58,8 +58,8 @@ describe('/api/genres', () => {
         let token;
         let name;
         
-        const executeRequest = async () => {
-            return await request(server)
+        const execReq = () => {
+            return request(server)
                 .post('/api/genres')
                 .set('x-auth-token', token)
                 .send({ name });
@@ -73,7 +73,7 @@ describe('/api/genres', () => {
         it('should return 401 if client is not logged in ', async () => {
 
             token = '';
-            const res = await executeRequest();
+            const res = await execReq();
             expect(res.status).toBe(401);
 
         });
@@ -81,7 +81,7 @@ describe('/api/genres', () => {
         it('should return 400 if genre is less than 5 character', async () => {
 
             name = 'gen';
-            const res = await executeRequest();
+            const res = await execReq();
             expect(res.status).toBe(400);
 
         });
@@ -89,14 +89,14 @@ describe('/api/genres', () => {
         it('should return 400 if genre is more than 50 character', async () => {
 
             name = new Array(52).join('a');
-            const res = await executeRequest();
+            const res = await execReq();
             expect(res.status).toBe(400);
 
         });
 
         it('should save the genre if is it valid', async () => {
 
-            await executeRequest();
+            await execReq();
             const genre = await Genre.find({ name: 'genre1' });
             expect(genre).toHaveLength(1);
 
@@ -104,7 +104,7 @@ describe('/api/genres', () => {
 
         it('should return the genre if its valid', async () => {
 
-            const res = await executeRequest();            
+            const res = await execReq();            
             expect(res.body).toHaveProperty('_id');
             expect(res.body).toHaveProperty('name', 'genre1');
 
