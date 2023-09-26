@@ -9,6 +9,7 @@ require('./startup/validation')();
 require('./startup/logging')(app);
 require('./startup/db')();
 require('./startup/routes')(app);
+require('./startup/prod')(app);
 
 
 function startServer(port) {
