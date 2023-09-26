@@ -4,7 +4,9 @@ const config = require('config');
 
 module.exports = function() {
 
-    mongoose.connect(config.get('connection'))
-        .then(() => logger.info('connected to mongo db'));
+    const db = config.get('connection');
+
+    mongoose.connect(db)
+        .then(() => logger.info(`Connected to mongo db ${db}`));
 
 }
